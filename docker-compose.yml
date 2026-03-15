@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+  bot:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - downloads:/tmp/downloads
+      - ./token.pickle:/app/token.pickle
+      - ./rclone.conf:/app/rclone.conf
+    depends_on:
+      - mongo
+      - aria2c
+
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: mirrornexus
+
+  aria2c:
+    image: p3terx/aria2-pro
+    restart: unless-stopped
+    environment:
+      - RPC_SECRET=${ARIA2C_SECRET:-}
+      - RPC_PORT=6800
+    volumes:
+      - downloads:/downloads
+    ports:
+      - "6800:6800"
+
+volumes:
+  downloads:
+  mongo_data:
