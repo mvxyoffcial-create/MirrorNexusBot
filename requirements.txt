@@ -12,7 +12,7 @@ Pillow==10.2.0
 ffmpeg-python==0.2.0
 humanize==4.9.0
 psutil==5.9.8
-qbittorrent-api==2024.1.59
+qbittorrent-api
 mega.py==1.0.8
 google-api-python-client==2.120.0
 google-auth-httplib2==0.2.0
